@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Damespiel</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(8, 75px); /* Größe der Zellen */
+            grid-gap: 1px; /* Abstand zwischen den Zellen */
+        }
+        .cell {
+            width: 75px;
+            height: 75px;
+            display: flex; /* Flex Container */
+            justify-content: center; /* Zentriert die Inhalte horizontal */
+            align-items: center; /* Zentriert die Inhalte vertikal */
+        }
+        .black { background-color: saddlebrown; }
+        .white { background-color: beige; }
+        .piece {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%; /* Kreisförmige Spielsteine */
+            /* Die margin Eigenschaft entfernen oder anpassen, wenn nötig */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .black-man { background-color: black; }
+        .white-man { background-color: white; }
+    </style>
+</head>
+<body>
+<div class="board">
+    <div th:each="row, rowIndex : ${board}">
+        <div th:each="cell, cellIndex : ${row}" class="cell" th:classappend="${cell.isBlack ? 'black' : 'white'}">
+            <div th:if="${cell.hasPiece()}" class="piece" th:classappend="${cell.isPieceBlack() ? 'black-man' : (cell.isPieceWhite() ? 'white-man' : '')}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
